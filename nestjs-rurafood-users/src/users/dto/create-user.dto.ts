@@ -1,76 +1,36 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
+  ValidateIf,
 } from 'class-validator';
+import { UserType } from '../entities/user.entity';
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'johndoe', description: 'The username of the user' })
-  @IsNotEmpty()
-  @IsString()
-  username: string;
-
-  @ApiProperty({ example: 'John Doe', description: 'The name of the user' })
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'Name is required' })
+  @IsString({ message: 'Name must be a string' })
   name: string;
 
-  @ApiProperty({
-    example: 'john@example.com',
-    description: 'The email of the user',
-  })
-  @IsNotEmpty()
-  @IsEmail()
+  @IsNotEmpty({ message: 'Email is required' })
+  @IsEmail({}, { message: 'Invalid email format' })
   email: string;
 
-  @ApiProperty({
-    example: 'password123',
-    description: 'The password of the user',
-  })
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'Password is required' })
+  @IsString({ message: 'Password must be a string' })
   password: string;
 
-  @ApiProperty({
-    example: 'person',
-    description: 'The type of user (person or restaurant)',
-  })
-  @IsNotEmpty()
-  @IsEnum(['person', 'restaurant'])
-  type: 'person' | 'restaurant';
+  @IsNotEmpty({ message: 'User type is required' })
+  @IsEnum(UserType, { message: 'Invalid user type' })
+  type: UserType;
 
-  @ApiProperty({
-    example: '12345678901',
-    description: 'The CPF of the person (if type is person)',
-  })
-  @IsOptional()
-  @IsString()
+  @ValidateIf((o) => o.type === UserType.PERSON)
+  @IsNotEmpty({ message: 'CPF is required for PERSON type' })
+  @IsString({ message: 'CPF must be a string' })
   cpf?: string;
 
-  @ApiProperty({
-    example: '12345678901234',
-    description: 'The CNPJ of the restaurant (if type is restaurant)',
-  })
-  @IsOptional()
-  @IsString()
+  @ValidateIf((o) => o.type === UserType.RESTAURANT)
+  @IsNotEmpty({ message: 'CNPJ is required for RESTAURANT type' })
+  @IsString({ message: 'CNPJ must be a string' })
   cnpj?: string;
-
-  @ApiProperty({
-    example: '123 Main St, City, State',
-    description: 'The address of the restaurant (if type is restaurant)',
-  })
-  @IsOptional()
-  @IsString()
-  address?: string;
-
-  @ApiProperty({
-    example: 'Italian',
-    description: 'The cuisine type of the restaurant (if type is restaurant)',
-  })
-  @IsOptional()
-  @IsString()
-  cuisine?: string;
 }
