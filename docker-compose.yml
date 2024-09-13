@@ -1,0 +1,24 @@
+services:
+  nestjs-rurafood-users:
+    build:
+      context: ./nestjs-rurafood-users
+    environment:
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+      - SERVICE_NAME=nestjs-rurafood-users
+      - SERVICE_HOST=nestjs-rurafood-users
+      - SERVICE_PORT=3000
+    # ... other configurations
+
+  nest-discovery:
+    build:
+      context: ./nestjs-discovery
+    environment:
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+      - SERVICE_NAME=nest-discovery
+      - SERVICE_HOST=nest-discovery
+      - SERVICE_PORT=3000
+    # ... other configurations
+
+  # ... other services
