@@ -8,6 +8,7 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
+    console.log('aqq', loginDto)
     const token = await this.authService.validateUserAndGenerateToken(
       loginDto.email,
       loginDto.password,
