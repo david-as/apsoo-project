@@ -1,0 +1,50 @@
+services:
+  account:
+    build:
+      context: ./4-account-service-gateway/
+    depends_on:
+      - discovery
+  transaction:
+    build:
+      context: ./4-transaction-service-gateway/
+    depends_on:
+      - discovery
+    networks:
+      - app-network
+
+  nestjs-rurafood-users:
+    build:
+      context: ./nestjs-rurafood-users
+    env_file:
+      - ./nestjs-rurafood-users/.env
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - discovery
+    networks:
+      - app-network
+
+  discovery:
+    build:
+      context: ./3-service-discovery/
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+
+  gateway:
+    build:
+      context: ./4-service-gateway
+    ports:
+      - "8084:8084"
+    depends_on:
+      - account
+      - transaction
+      - nestjs-rurafood-users
+      - discovery
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

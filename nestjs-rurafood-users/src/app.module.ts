@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 import { IntroModule } from './views/intro/intro.module';
-import { User } from './users/entities/user.entity';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
+import { EurekaClientService } from './eureka-client.service';
 
 @Module({
   imports: [
@@ -30,5 +33,7 @@ import { User } from './users/entities/user.entity';
     IntroModule,
     UsersModule,
   ],
+  // controllers: [AppController],
+  providers: [EurekaClientService], // Add EurekaClientService here
 })
 export class AppModule {}
