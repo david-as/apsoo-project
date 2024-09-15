@@ -22,6 +22,14 @@ async function bootstrap() {
     // Setup Swagger
     setupSwagger(app);
 
+    // Check if running in localhost
+    const isLocalhost = process.env.ADD_USER_PREFIX === 'true';
+
+    if (isLocalhost) {
+      // Add 'user' prefix to all routes when running locally
+      app.setGlobalPrefix('user');
+    }
+
     // Add redirect from /api to /api/docs
     app.use('/api', (req, res, next) => {
       if (req.url === '/') {
@@ -33,6 +41,7 @@ async function bootstrap() {
 
     await app.listen(process.env.PORT || 3000);
     console.log(`Application is running on: ${await app.getUrl()}`);
+    console.log(`Running in ${isLocalhost ? 'localhost' : 'production'} mode`);
   } catch (error) {
     console.error('Error starting the application:', error);
   }

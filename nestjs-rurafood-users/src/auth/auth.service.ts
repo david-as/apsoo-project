@@ -15,13 +15,11 @@ export class AuthService {
   async validateUserAndGenerateToken(
     email: string,
     password: string,
-  ): Promise<string | null> {
+  ): Promise<{ token: string; user: User } | null> {
     const user = await this.userRepository.findOne({ where: { email } });
-    console.log('12313', user, email, password)
-    // Check if user exists (password validation removed)
     if (user) {
       const payload = { email: user.email, sub: user.id };
-      return this.jwtService.sign(payload);
+      return { token: this.jwtService.sign(payload), user: user };
     }
     return null;
   }
