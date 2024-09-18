@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual Environment (venv)
+venv/
+env/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Configurações de ambiente
+*.env
+
+# Arquivos de cache do pytest
+.pytest_cache/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Docker
+*.log
+Dockerfile.zip
+
+# IDEs e Editores (VSCode, PyCharm, etc.)
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
