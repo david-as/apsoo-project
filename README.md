@@ -95,10 +95,10 @@ Crie as imagens Docker e execute os containers:
 docker-compose up --build
 Para acessar os serviços, utilize as URLs configuradas no Kong API Gateway (substitua <localhost> pelo endereço IP configurado, se necessário):
 
-Useresque (Usuários e Restaurantes): http://localhost:8000/useresque
-Realizar Pedido: http://localhost:8000/realizar-pedido
-Gerar Pagamento: http://localhost:8000/gerar-pagamento
-Listar Pedidos: http://localhost:8000/listar-pedidos
+- Useresque (Usuários e Restaurantes): http://localhost:8000/useresque
+- Realizar Pedido: http://localhost:8000/realizar-pedido
+- Gerar Pagamento: http://localhost:8000/gerar-pagamento
+- Listar Pedidos: http://localhost:8000/listar-pedidos
 
 ### Frontend:
 O frontend está disponível no Netlify, acessível através do link fornecido pelo time de desenvolvimento.
@@ -106,14 +106,23 @@ O frontend está disponível no Netlify, acessível através do link fornecido p
 ### Estrutura do Projeto
 
 /Projeto-Microsservicos/
+
 ├── backend/
+
 │   ├── useresque/ (Nest.js)
+
 │   ├── realizar-pedido/ (Flask)
+
 │   ├── gerar-pagamento/ (Flask)
+
 │   ├── listar-pedidos/ (Flask)
+
 ├── frontend/ (Next.js)
+
 ├── kong/ (API Gateway e Service Discovery)
+
 ├── docker-compose.yml
+
 ├── README.md
 
 
