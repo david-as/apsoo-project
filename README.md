@@ -75,7 +75,7 @@ O microsserviço de pagamento é responsável por se comunicar com a API externa
 Certifique-se de que você tem as seguintes ferramentas instaladas:
 - Docker e Docker Compose
 - Git para clonar o repositório
-- 
+  
    - git clone https://github.com/david-as/apsoo-project
 
   -  cd apsoo-project
