@@ -1,14 +1,9 @@
 # Projeto de Arquitetura APP_delivery/Microsserviços
-**Versão:** 1.0  
-**Data:** 17/09/2024  
-**Equipe:**  
-- **Nome:** [Seu Nome]  
-- **E-mail:** [Seu E-mail]  
 
-## Histórico de Revisões
-| Data       | Versão | Descrição                | Responsáveis  |
-|------------|--------|--------------------------|--------------|
-| 17/09/2024 | 1.0    | Versão inicial do documento | [Seu Nome]   |
+**Equipe:**  
+- David Amorim
+- Deyvesson Carlos
+- Moacir Gomes    
 
 ## 1. Introdução
 
@@ -24,27 +19,22 @@ Este documento apresenta a arquitetura do projeto baseado em microsserviços des
 ## 2. Arquitetura de Serviços
 
 ### 2.1 Serviços Implementados
-O projeto é composto por cinco microsserviços principais que realizam operações independentes e comunicam-se entre si:
+O projeto é composto por quatro microsserviços principais que realizam operações independentes e comunicam-se entre si:
 
-- **Useresque:**
+- **User:**
   - **Função:** Gerenciamento de usuários e restaurantes.
   - **Implementação:** Nest.js.
   - **Comunicação:** REST API.
   
-- **Realizar Pedido:**
+- **Pedido:**
   - **Função:** Processar pedidos de clientes.
   - **Implementação:** Flask (Python).
   - **Comunicação:** REST API com outros serviços.
   
-- **Gerar Pagamento:**
+- **Pagamento:**
   - **Função:** Processar pagamentos utilizando a API do Mercado Pago.
   - **Implementação:** Flask (Python).
   - **Comunicação:** Externa via API do Mercado Pago.
-  
-- **Listar Pedidos:**
-  - **Função:** Listar pedidos realizados no sistema.
-  - **Implementação:** Flask (Python).
-  - **Comunicação:** Interna via REST API.
   
 - **API Gateway e Service Discovery:**
   - **Função:** Roteamento e descoberta de serviços.
@@ -88,18 +78,70 @@ Certifique-se de que você tem as seguintes ferramentas instaladas:
 
 ### Instruções para Execução
 
-   git clone [link-do-repositorio]
-   cd [nome-do-repositorio]
+   git clone https://github.com/david-as/apsoo-project
 
-Crie as imagens Docker e execute os containers:
-docker-compose up --build
+   cd apsoo-project
+
+Com o docker em execução crie os serviços com:
+
+docker-compose up -d
+
 Para acessar os serviços, utilize as URLs configuradas no Kong API Gateway (substitua <localhost> pelo endereço IP configurado, se necessário):
 
-- Useresque (Usuários e Restaurantes): http://localhost:8000/useresque
-- Realizar Pedido: http://localhost:8000/realizar-pedido
-- Gerar Pagamento: http://localhost:8000/gerar-pagamento
-- Listar Pedidos: http://localhost:8000/listar-pedidos
-- Swagger UI: http://20.201.113.180:8000/user/api/docs#/
+- Obter Lista (Usuários e Restaurantes): GET - http://localhost:8000/user/users
+- Criar Usuário: POST - http://localhost:8000/user/users
+  - Body: {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "type": "PERSON",
+    "cpf": "123.456.789-00"
+  }
+- Obter Apenas restaurantes: GET - http://localhost:8000/user/users/restaurants
+- Obter Apenas usuários: GET - http://localhost:8000/user/users/persons
+- Obter (Usuário ou Restaurante) Por ID: GET - http://localhost:8000/user/users/[id]
+- Atualizar (Usuário ou Restaurante) Por ID: PATCH - http://localhost:8000/user/users/[id]
+  - Body: {
+    "name": "Updated John Doe",
+    "email": "updated.john@example.com"
+  }
+- Deletar (Usuário ou Restaurante) Por ID: DELETE - http://localhost:8000/user/users/[id]
+- Realizar Pedido: POST - http://localhost:8000/pedido/criar_pedido
+  - Body: {
+    "valor": "100.00",
+    "status": "Pendente Pagamento"
+  }
+- Listar Pedidos: GET - http://localhost:8000/pedido/listar_pedidos
+- Obter Pedido Por ID: GET - http://localhost:8000/pedido/get_pedido/[id]
+- Atualizar Pedido Por ID: PUT - http://localhost:8000/pedido/atualizar_pedido/[id]
+  - Body: {
+    "status": "Pago Com sucesso"
+  }
+- Realizar Pagamento: POST - http://localhost:8000/pedido/realizar_pagamento
+  - Body: {
+    "title": "Pagamento Teste",
+    "quantity": 100,
+    "back_url": "http//localhost:8000/teste"
+  }
+- Gerar Pagamento: POST - http://localhost:8000/pagamento/gerar_pagamento
+  - Body: {
+    "items": [
+        {
+            "id": "123",
+            "title": "Produto Teste",
+            "quantity": 100,
+            "currency_id": "BRL",
+            "unit_price": 1.00
+        }
+    ],
+    "back_urls": {
+        "success": "http://localhost:8000/retorno_pagamento",
+        "failure": "http://localhost:8000/retorno_pagamento",
+        "pending": "http://localhost:8000/retorno_pagamento"
+    },
+    "auto_return": "all"
+}
+- Swagger UI: http://localhost:8000/user/api/docs/
 
 ### Frontend:
 O frontend está disponível no Netlify, acessível através do link fornecido pelo time de desenvolvimento.
@@ -110,19 +152,16 @@ Link: https://main--rurafood.netlify.app/
 
 /Projeto-Microsservicos/
 
-├── backend/
 
-│   ├── useresque/ (Nest.js)
+├── users_service/ (Nest.js)
 
-│   ├── realizar-pedido/ (Flask)
+├── pedido_service/ (Flask)
 
-│   ├── gerar-pagamento/ (Flask)
-
-│   ├── listar-pedidos/ (Flask)
+├── pagamento_service/ (Flask)
 
 ├── frontend/ (Next.js)
 
-├── kong/ (API Gateway e Service Discovery)
+├── kong.yml (API Gateway e Service Discovery)
 
 ├── docker-compose.yml
 
