@@ -75,18 +75,16 @@ O microsserviço de pagamento é responsável por se comunicar com a API externa
 Certifique-se de que você tem as seguintes ferramentas instaladas:
 - Docker e Docker Compose
 - Git para clonar o repositório
+- 
+   - git clone https://github.com/david-as/apsoo-project
 
-### Instruções para Execução
+  -  cd apsoo-project
 
-   git clone https://github.com/david-as/apsoo-project
+- Com o docker em execução crie os serviços com:
 
-   cd apsoo-project
+- docker-compose up -d
 
-Com o docker em execução crie os serviços com:
-
-docker-compose up -d
-
-Para acessar os serviços, utilize as URLs configuradas no Kong API Gateway (substitua <localhost> pelo endereço IP configurado, se necessário):
+- Para acessar os serviços, utilize as URLs configuradas no Kong API Gateway (substitua <localhost> pelo endereço IP configurado, se necessário):
 
 - Obter Lista (Usuários e Restaurantes): GET - http://localhost:8000/user/users
 - Criar Usuário: POST - http://localhost:8000/user/users
