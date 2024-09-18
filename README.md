@@ -99,9 +99,12 @@ Para acessar os serviços, utilize as URLs configuradas no Kong API Gateway (sub
 - Realizar Pedido: http://localhost:8000/realizar-pedido
 - Gerar Pagamento: http://localhost:8000/gerar-pagamento
 - Listar Pedidos: http://localhost:8000/listar-pedidos
+- Swagger UI: http://20.201.113.180:8000/user/api/docs#/
 
 ### Frontend:
 O frontend está disponível no Netlify, acessível através do link fornecido pelo time de desenvolvimento.
+
+Link: https://main--rurafood.netlify.app/
 
 ### Estrutura do Projeto
 
