@@ -79,7 +79,7 @@ Todos os microsserviços são executados em containers Docker, e a orquestraçã
 ### 3.3 Comunicação Externa
 O microsserviço de pagamento é responsável por se comunicar com a API externa do Mercado Pago para processar transações com cartão de crédito, gerando respostas de aprovação ou negação para o serviço de pedidos.
 
-## 4. README - Instruções para Execução
+## 4. Instruções para Execução
 
 ### Pré-requisitos
 Certifique-se de que você tem as seguintes ferramentas instaladas:
