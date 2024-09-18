@@ -1,4 +1,4 @@
-# Projeto de Arquitetura APP_dellivery/Microsserviços
+# Projeto de Arquitetura APP_delivery/Microsserviços
 **Versão:** 1.0  
 **Data:** 17/09/2024  
 **Equipe:**  
