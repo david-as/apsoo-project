@@ -1,0 +1,41 @@
+_format_version: "3.0"
+
+services:
+  - name: pedido-service
+    host: pedido-upstream
+    routes:
+      - name: pedido-route
+        paths:
+          - /pedido  # Rota acessível pelos clientes
+    port: 80
+    
+  - name: pagamento-service
+    host: pagamento-upstream
+    routes:
+      - name: pagamento-route
+        paths:
+          - /pagamento  # Rota acessível pelos clientes
+    port: 80
+    
+  - name: user-service
+    host: user-upstream
+    routes:
+      - name: user-route
+        paths:
+          - /user  # Rota acessível pelos clientes
+    port: 80
+
+upstreams:
+  - name: pedido-upstream  # Nome do upstream para balanceamento de carga
+    targets:
+        #cadastrando containers no upstream
+      - target: pedido1:5000
+      #- target: pedido2:5000
+      
+  - name: pagamento-upstream  # Nome do upstream para balanceamento de carga do serviço de pagamentos
+    targets:
+      - target: pagamento1:5000
+      
+  - name: user-upstream  # Nome do upstream para balanceamento de carga do serviço de user
+    targets:
+      - target: user1:3000
